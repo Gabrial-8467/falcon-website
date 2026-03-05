@@ -20,8 +20,8 @@ const ExamplesPage = () => {
 show("Hello, Falcon!");
 
 // Simple function
-function greet(name) {
-    return "Hello, " + name + "!";
+fn greet(name) {
+    give "Hello, " + name + "!";
 }
 
 show(greet("World"));`,
@@ -57,31 +57,25 @@ loop count < 3 {
       title: 'Variables & Types',
       description: 'Variable declarations, constants, and type annotations',
       difficulty: 'Beginner',
-      code: `// Easy declarations
-set x = 10
-set y = 20
-show("x =", x)
-show("y =", y)
+      code: `// Type annotations
+set count: int = 3;
+set title: string = "Falcon";
+const enabled: bool = true;
 
-// Constant declarations with =
-const pi = 3.14159;
-const name = "Falcon";
-show("const pi =", pi);
-show("const name =", name);
+fn add(a: int, b: int): int {
+    give a + b;
+}
 
-// Variable reassignment
-x = x + 5;
-show("x updated to:", x);
+fn banner(name: string): string {
+    give "Hello, " + name;
+}
 
-// Type annotations
-var count: int := 3;
-var title: string := "Falcon";
-const enabled: bool = true;`,
-      output: `x = 10
-y = 20
-const pi = 3.14159
-const name = Falcon
-x updated to: 15`
+show(add(count, 9));
+show(banner(title));
+show(enabled);`,
+      output: `12
+Hello, Falcon
+true`
     },
     {
       id: 'functions',
@@ -109,15 +103,15 @@ fn applyOperation(a, b, operation) {
 }
 
 // Closure example
-function makeCounter(start) {
-    var count := start;
-    return function() {
+fn makeCounter(start) {
+    set count = start;
+    give fn() {
         count = count + 1;
-        return count;
+        give count;
     };
 }
 
-var next := makeCounter(0);
+set next = makeCounter(0);
 show("First call:", next());
 show("Second call:", next());
 show("Third call:", next());
@@ -138,17 +132,17 @@ applyOperation(10, 5, add) = 15`
       description: 'Lists, tuples, dictionaries, sets, and arrays',
       difficulty: 'Intermediate',
       code: `// List (dynamic array)
-var fruits := ["apple", "banana", "orange"];
+set fruits = ["apple", "banana", "orange"];
 show("List:", fruits);
 show("First fruit:", fruits[0]);
 
 // Tuple (immutable)
-var coordinates := (10, 20, 30);
+set coordinates = (10, 20, 30);
 show("Tuple:", coordinates);
 show("Second coordinate:", coordinates[1]);
 
 // Dictionary / Object
-var person := {
+set person = {
     name: "Alice",
     age: 25,
     city: "New York"
@@ -158,13 +152,13 @@ show("Name:", person.name);
 show("Age:", person["age"]);
 
 // Set
-var numbers := set{1, 2, 3, 4, 5};
+set numbers = set{1, 2, 3, 4, 5};
 show("Set:", numbers);
 
 // Array (fixed size)
-var scores := array[5];
-scores[0] := 95;
-scores[1] := 87;
+set scores = array[5];
+scores[0] = 95;
+scores[1] = 87;
 show("Array:", scores);`,
       output: `List: ["apple", "banana", "orange"]
 First fruit: apple
@@ -174,21 +168,21 @@ Dictionary: {"name": "Alice", "age": 25, "city": "New York"}
 Name: Alice
 Age: 25
 Set: {1, 2, 3, 4, 5}
-Array: [95, 87, null, null, null]`
+Array: [95, 87, null, null]`
     },
     {
       id: 'control-flow',
       title: 'Control Flow',
       description: 'If/else statements, loops, and pattern matching',
       difficulty: 'Intermediate',
-      code: `// If/else statements
-function checkNumber(n) {
-    if (n > 0) {
-        return "Positive";
-    } else if (n < 0) {
-        return "Negative";
+      code: `// When/else statements
+fn checkNumber(n) {
+    when (n > 0) {
+        give "Positive";
+    } else when (n < 0) {
+        give "Negative";
     } else {
-        return "Zero";
+        give "Zero";
     }
 }
 
@@ -197,28 +191,27 @@ show("checkNumber(-3) =", checkNumber(-3));
 show("checkNumber(0) =", checkNumber(0));
 
 // For loops with different steps
-for i := 1 to 5 step 1 {
+for set i = 1 to 5 step 1 {
     show("Count up:", i);
 }
 
-for j := 10 to 1 step -2 {
+for set j = 10 to 1 step -2 {
     show("Count down by 2:", j);
 }
 
 // While loop
-var counter := 0;
+set counter = 0;
 while (counter < 3) {
     show("While iteration:", counter);
-    counter := counter + 1;
+    counter = counter + 1;
 }
 
 // Pattern matching
-function classifyUser(user) {
-    return match user {
+fn classifyUser(user) {
+    give match user {
         case { role: "admin", active: true, name: n }: "admin:" + n;
         case { role: "member", score: s } if s >= 90: "top-member";
         case { role: "member", score: s } if s >= 50: "member";
-        case { role: "member" }: "member";
         case { role: "guest" }: "guest";
         case _: "unknown";
     };
@@ -227,7 +220,8 @@ function classifyUser(user) {
 show(classifyUser({ role: "admin", active: true, name: "Ava" }));
 show(classifyUser({ role: "member", score: 95 }));
 show(classifyUser({ role: "member", score: 64 }));
-show(classifyUser({ role: "guest" }));`,
+show(classifyUser({ role: "guest" }));
+show(classifyUser({ foo: "bar" }));`,
       output: `checkNumber(5) = Positive
 checkNumber(-3) = Negative
 checkNumber(0) = Zero
@@ -255,11 +249,11 @@ guest`
       description: 'Classic factorial example demonstrating recursion',
       difficulty: 'Intermediate',
       code: `// Classic recursive factorial implementation
-function fact(n) {
-    if (n == 0) { 
-        return 1; 
+fn fact(n) {
+    when (n == 0) { 
+        give 1; 
     }
-    return n * fact(n - 1);
+    give n * fact(n - 1);
 }
 
 // Test factorial function
@@ -268,11 +262,11 @@ show("6! =", fact(6));    // 720
 show("10! =", fact(10));  // 3628800
 
 // Recursive Fibonacci
-function fib(n) {
-    if (n <= 1) {
-        return n;
+fn fib(n) {
+    when (n <= 1) {
+        give n;
     }
-    return fib(n - 1) + fib(n - 2);
+    give fib(n - 1) + fib(n - 2);
 }
 
 show("fib(10) =", fib(10));  // 55`,
@@ -286,18 +280,18 @@ fib(10) = 55`
       title: 'Error Handling',
       description: 'Try/catch/throw for robust error handling',
       difficulty: 'Advanced',
-      code: `function safeDivide(a, b) {
-    if (b == 0) {
+      code: `fn safeDivide(a, b) {
+    when (b == 0) {
         throw "division by zero";
     }
-    return a / b;
+    give a / b;
 }
 
-function safeArrayAccess(arr, index) {
-    if (index < 0 || index >= arr.length) {
+fn safeArrayAccess(arr, index) {
+    when (index < 0 || index >= arr.length) {
         throw "index out of bounds";
     }
-    return arr[index];
+    give arr[index];
 }
 
 try {
@@ -308,7 +302,7 @@ try {
 }
 
 try {
-    var arr := [10, 20, 30];
+    set arr = [10, 20, 30];
     show("arr[1] =", safeArrayAccess(arr, 1));
     show("arr[5] =", safeArrayAccess(arr, 5));
 } catch (err) {
@@ -316,13 +310,13 @@ try {
 }
 
 // Nested try-catch
-function complexOperation() {
+fn complexOperation() {
     try {
-        var result := safeDivide(10, 0);
-        return result;
+        set result = safeDivide(10, 0);
+        give result;
     } catch (err) {
         show("Error in complexOperation:", err);
-        return 0;
+        give 0;
     }
 }
 
@@ -342,34 +336,34 @@ Complex operation result: 0`
       code: `show("Starting async stub...");
 
 // Create and resolve a promise
-var p = Promise.resolve(42);
+set p = Promise.resolve(42);
 
 // Chain promise operations
-p.then(function(x) {
+p.then(fn(x) {
     show("Promise resolved with:");
     show(x);
-    return x * 2;
-}).then(function(doubled) {
+    give x * 2;
+}).then(fn(doubled) {
     show("Doubled value:", doubled);
 });
 
 // Promise constructor
-var p2 = Promise(function(resolve, reject) {
+set p2 = Promise(fn(resolve, reject) {
     resolve("Async operation complete!");
 });
 
-p2.then(function(msg) {
+p2.then(fn(msg) {
     show("Constructor promise:", msg);
 });
 
 // Promise rejection
-var p3 = Promise(function(resolve, reject) {
+set p3 = Promise(fn(resolve, reject) {
     reject("Something went wrong!");
 });
 
-p3.then(function(msg) {
+p3.then(fn(msg) {
     show("This won't be called:", msg);
-}).catch(function(err) {
+}).catch(fn(err) {
     show("Caught promise error:", err);
 });
 

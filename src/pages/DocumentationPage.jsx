@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ChevronDown, ChevronRight, Book, Code, FileText } from 'lucide-react'
 
 const DocumentationPage = () => {
-  const [expandedSections, setExpandedSections] = useState(['syntax', 'variables', 'functions'])
+  const [expandedSections, setExpandedSections] = useState(['syntax', 'variables', 'functions', 'easy'])
 
   const toggleSection = (section) => {
     setExpandedSections(prev => 
@@ -18,7 +18,7 @@ const DocumentationPage = () => {
       title: 'Language Syntax',
       icon: <Book size={20} />,
       content: {
-        description: 'Falcon supports a clean, modern syntax inspired by JavaScript but with enhanced readability.',
+        description: 'Falcon supports a clean, modern syntax with `fn` as the primary function declaration keyword.',
         examples: [
           {
             title: 'Variable Declarations',
@@ -27,8 +27,8 @@ set x = 10
 set y = 20
 
 // Standard declarations
-var x := 10;
-let y := 20;  
+set x = 10;
+set y = 20;  
 const z = 30;  // Constants
 
 // Variable reassignment
@@ -53,30 +53,43 @@ x = x + 5;`
         examples: [
           {
             title: 'Type Annotations',
-            code: `var count: int := 3;
-var title: string := "Falcon";
+            code: `set count: int = 3;
+set title: string = "Falcon";
 const enabled: bool = true;
 
-function add(a: int, b: int): int {
-    return a + b;
-}`
+fn add(a: int, b: int): int {
+    give a + b;
+}
+
+fn banner(name: string): string {
+    give "Hello, " + name;
+}
+
+show(add(count, 9));
+show(banner(title));
+show(enabled);`
           },
           {
             title: 'Collection Types',
             code: `// List (dynamic array)
-var lst := [1, 2, 3];
+set lst = [1, 2, 3];
 
 // Tuple (immutable)
-var tpl := (1, 2, 3);
+set tpl = (1, 2, 3);
 
 // Dictionary / Object
-var obj := { name: "Falcon", version: 0.3 };
+set obj = { name: "Falcon", version: 0.3 };
 
 // Set
-var s := set{1, 2, 3};
+set s = set{1, 2, 3};
 
 // Array (fixed size)
-var arr := array[5];`
+set arr = array[5];
+
+// Subscript and member access
+show(lst[0]);        // 1
+show(obj.name);      // "Falcon"
+show(obj["version"]); // 0.3`
           }
         ]
       }
@@ -86,44 +99,60 @@ var arr := array[5];`
       title: 'Functions',
       icon: <Code size={20} />,
       content: {
-        description: 'Functions are first-class citizens with support for closures, lexical scoping, and multiple declaration styles.',
+        description: 'Functions are first-class citizens with support for closures, lexical scoping, and the `fn` keyword.',
         examples: [
           {
             title: 'Function Declarations',
-            code: `// Standard function
-function add(a, b) {
-    return a + b;
+            code: `// Function declaration
+fn add(a, b) {
+    give a + b
 }
 
-// Arrow-style function
-fn multiply(x, y) => x * y
+// Function with multiple parameters
+fn greet(name, age) {
+    give "Hello, " + name + "! You are " + age + " years old."
+}
 
-// Function with type annotations
-fn divide(a: float, b: float): float => a / b`
+// Function expression
+set multiply = fn(x, y) {
+    give x * y
+}
+
+// Higher-order function
+fn applyOperation(a, b, operation) {
+    give operation(a, b)
+}
+
+show("add(5, 3) =", add(5, 3));
+show("multiply(4, 7) =", multiply(4, 7));
+show("applyOperation(10, 5, add) =", applyOperation(10, 5, add));`
           },
           {
             title: 'Closures & Lexical Scoping',
-            code: `function makeCounter(start) {
-    var count := start;
-    return function() {
+            code: `fn makeCounter(start) {
+    set count = start;
+    give fn() {
         count = count + 1;
-        return count;
+        give count;
     };
 }
 
-var next := makeCounter(0);
+set next = makeCounter(0);
 show(next());  // 1
 show(next());  // 2
-show(next());  // 3`
-          },
-          {
-            title: 'Higher-Order Functions',
-            code: `function applyOperation(a, b, operation) {
-    return operation(a, b);
+show(next());  // 3
+
+// Advanced closure with parameters
+fn makeAdder(x) {
+    give fn(y) {
+        give x + y;
+    };
 }
 
-show(applyOperation(10, 5, add));     // 15
-show(applyOperation(10, 5, multiply)); // 50`
+set add5 = makeAdder(5);
+set add10 = makeAdder(10);
+show("5 + 3 =", add5(3));    // 8
+show("10 + 7 =", add10(7));  // 17`
           }
         ]
       }
@@ -136,52 +165,117 @@ show(applyOperation(10, 5, multiply)); // 50`
         description: 'Comprehensive control flow structures including conditionals, loops, and pattern matching.',
         examples: [
           {
-            title: 'If/Else Statements',
-            code: `function checkNumber(n) {
-    if (n > 0) {
-        return "Positive";
-    } else if (n < 0) {
-        return "Negative";
+            title: 'When/Else Statements',
+            code: `fn checkNumber(n) {
+    when (n > 0) {
+        give "Positive";
+    } else when (n < 0) {
+        give "Negative";
     } else {
-        return "Zero";
+        give "Zero";
     }
 }
 
-show(checkNumber(5));   // "Positive"
-show(checkNumber(-3));  // "Negative"
-show(checkNumber(0));   // "Zero"`
+show("checkNumber(5) =", checkNumber(5));
+show("checkNumber(-3) =", checkNumber(-3));
+show("checkNumber(0) =", checkNumber(0));`
           },
           {
             title: 'Loops',
-            code: `// For loop with step
-for i := 1 to 10 step 2 {
-    show("Count:", i);
+            code: `// For loops with different steps
+for set i = 1 to 5 step 1 {
+    show("Count up:", i);
+}
+
+for set j = 10 to 1 step -2 {
+    show("Count down by 2:", j);
 }
 
 // While loop
-var x := 0;
-while (x < 5) {
-    show(x);
-    x = x + 1;
+set counter = 0;
+while (counter < 3) {
+    show("While iteration:", counter);
+    counter = counter + 1;
 }
 
-// Infinite loop with break
-loop {
-    show("Running...");
-    if (some_condition) { break; }
-}`
+// Controlled infinite loop
+fn limitedLoop(maxIterations) {
+    set i = 0;
+    loop {
+        show("Loop iteration:", i);
+        i = i + 1;
+        when (i >= maxIterations) { break; }
+    }
+}
+limitedLoop(3);`
           },
           {
-            title: 'Pattern Matching',
-            code: `function classifyUser(user) {
-    return match user {
-        case { role: "admin", name: n }: "admin:" + n;
+            title: 'Pattern Matching with Guards',
+            code: `fn classifyUser(user) {
+    give match user {
+        case { role: "admin", active: true, name: n }: "admin:" + n;
         case { role: "member", score: s } if s >= 90: "top-member";
-        case { role: "member" }: "member";
+        case { role: "member", score: s } if s >= 50: "member";
         case { role: "guest" }: "guest";
         case _: "unknown";
     };
+}
+
+show(classifyUser({ role: "admin", active: true, name: "Ava" }));
+show(classifyUser({ role: "member", score: 95 }));
+show(classifyUser({ role: "member", score: 64 }));
+show(classifyUser({ role: "guest" }));
+show(classifyUser({ foo: "bar" }));`
+          }
+        ]
+      }
+    },
+    {
+      id: 'easy',
+      title: 'Easy Custom Syntax',
+      icon: <Code size={20} />,
+      content: {
+        description: 'Falcon supports an easy custom style with `fn` as the primary function declaration and helpful keyword aliases.',
+        examples: [
+          {
+            title: 'Keyword Aliases',
+            code: `// Primary keyword: fn (function declaration)
+// Helpful aliases for readability:
+// give = return
+// when = if
+// say expr = show(expr)
+// set name = value = easy variable declaration
+// loop condition { ... } = while-style loop
+
+// Example using easy syntax
+set count = 0
+
+fn add(a: int, b: int) => int {
+    give a + b
+}
+
+when count == 0 {
+    say "start"
+}
+
+loop count < 3 {
+    say add(count, 2)
+    count = count + 1
 }`
+          },
+          {
+            title: 'Traditional vs Easy Syntax',
+            code: `// Standard Falcon syntax (recommended)
+fn greet(name) {
+    give "Hello, " + name + "!";
+}
+
+// Easy custom syntax with aliases
+fn greet(name) {
+    give "Hello, " + name + "!";
+}
+
+// Both use the same fn keyword - just different aliases for readability`
           }
         ]
       }
@@ -195,7 +289,8 @@ loop {
         examples: [
           {
             title: 'Arithmetic Operations',
-            code: `set a = 10
+            code: `// Arithmetic operations
+set a = 10
 set b = 3
 
 show("10 + 3 =", a + b);      // 13
@@ -206,15 +301,27 @@ show("10 % 3 =", a % b);      // 1`
           },
           {
             title: 'Comparison Operations',
-            code: `var a := 10;
-var b := 20;
+            code: `// Equality operators
+set a = 10;
+set b = 20;
 
 show(a == b);   // false (equal to)
 show(a != b);   // true  (not equal to)
+
+// Relational operators
 show(a < b);    // true  (less than)
 show(a <= b);   // true  (less than or equal to)
 show(a > b);    // false (greater than)
-show(a >= b);   // false (greater than or equal to)`
+show(a >= b);   // false (greater than or equal to)
+
+// In conditional statements
+when (a < b) {
+    show("a is less than b");
+} else when (a > b) {
+    show("a is greater than b");
+} else {
+    show("a equals b");
+}`
           },
           {
             title: 'Logical Operations',
@@ -223,7 +330,7 @@ show(true || false);  // true
 show(!true);          // false
 
 // In conditions
-if (x > 0 && y < 10) {
+when (x > 0 && y < 10) {
     show("x is positive and y is less than 10");
 }`
           }
@@ -248,32 +355,47 @@ show("Value:", 42);
 show("Result:", add(5, 3));`
           },
           {
-            title: 'Collection Operations',
-            code: `// List operations
-var lst := [1, 2, 3];
-show(lst[0]);        // 1
-show(lst.length);    // 3
-
-// Dictionary access
-var obj := { name: "Falcon", version: 0.3 };
-show(obj.name);      // "Falcon"
-show(obj["version"]); // 0.3`
-          },
-          {
             title: 'Error Handling',
-            code: `function safeDivide(a, b) {
-    if (b == 0) {
+            code: `fn safeDivide(a, b) {
+    when (b == 0) {
         throw "division by zero";
     }
-    return a / b;
+    give a / b;
 }
 
 try {
-    show(safeDivide(10, 2));
-    show(safeDivide(10, 0));
+    show("10 / 2 =", safeDivide(10, 2));
+    show("10 / 0 =", safeDivide(10, 0));
 } catch (err) {
     show("Caught error:", err);
 }`
+          },
+          {
+            title: 'Promise API',
+            code: `show("Starting async stub...");
+
+// Create and resolve a promise
+set p = Promise.resolve(42);
+
+// Chain promise operations
+p.then(fn(x) {
+    show("Promise resolved with:");
+    show(x);
+    give x * 2;
+}).then(fn(doubled) {
+    show("Doubled value:", doubled);
+});
+
+// Promise constructor
+set p2 = Promise(fn(resolve, reject) {
+    resolve("Async operation complete!");
+});
+
+p2.then(fn(msg) {
+    show("Constructor promise:", msg);
+});
+
+show("Promise scheduled.");`
           }
         ]
       }

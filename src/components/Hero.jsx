@@ -11,7 +11,7 @@ const Hero = () => {
             <img 
               src="/src/assets/minfnlogo.png" 
               alt="Falcon Logo" 
-              className="h-48 w-auto animate-float hover-lift rounded-xl transition-all duration-300" 
+              className="h-48 w-auto animate-float rounded-xl transition-all duration-300" 
             />
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fadeInUp animate-delay-200">
@@ -23,16 +23,16 @@ const Hero = () => {
           <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8 animate-fadeInUp animate-delay-400">
             Expressive. Hackable. Built for experiments and real projects.
             <br />
-            Experience the power of a hybrid Compiler + VM + Interpreter execution model.
+            <span className="text-orange-400 font-semibold">Small language. Big possibilities.</span>
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fadeInUp animate-delay-500">
-          <Button variant="primary" size="lg" href="/install" className="hover-lift">
-            Get Started <ArrowRight className="ml-2" size={20} />
-          </Button>
           <Button variant="outline" size="lg" href="/docs" className="hover-lift">
             View Documentation
+          </Button>
+          <Button variant="primary" size="lg" href="/install" className="hover-lift">
+            Download <ArrowRight className="ml-2" size={20} />
           </Button>
         </div>
 
@@ -51,7 +51,7 @@ const Hero = () => {
             <div className="flex items-center justify-center w-12 h-12 bg-orange-500/20 rounded-lg mb-4 mx-auto">
               <Zap className="text-orange-500" size={24} />
             </div>
-            <h3 className="text-white font-semibold mb-2">Hybrid Performance</h3>
+            <h3 className="text-white font-semibold mb-2">Hybrid Execution</h3>
             <p className="text-gray-300 text-sm">
               Compiler + VM + Interpreter execution model gives you the speed of compiled bytecode with flexibility.
             </p>
@@ -61,9 +61,9 @@ const Hero = () => {
             <div className="flex items-center justify-center w-12 h-12 bg-orange-500/20 rounded-lg mb-4 mx-auto">
               <Shield className="text-orange-500" size={24} />
             </div>
-            <h3 className="text-white font-semibold mb-2">Production Ready</h3>
+            <h3 className="text-white font-semibold mb-2">Modular & Extensible</h3>
             <p className="text-gray-300 text-sm">
-              Modular, extensible architecture with closures, loops, functions, and built-in runtime library.
+              Clean compiler architecture with closures, loops, functions, and built-in runtime library.
             </p>
           </div>
         </div>
@@ -72,12 +72,20 @@ const Hero = () => {
           <div className="inline-block bg-gray-800 rounded-lg p-4 border border-gray-700 code-animate">
             <pre className="text-green-400 text-sm font-mono">
               <code>{`// Falcon Syntax Example
-function greet(name) {
-    return "Hello, " + name + "!";
+set count = 0
+
+fn add(a: int, b: int) => int {
+    give a + b
 }
 
-show(greet("Falcon"));
-// Output: Hello, Falcon!`}</code>
+when count == 0 {
+    say "start"
+}
+
+loop count < 3 {
+    say add(count, 2)
+    count = count + 1
+}`}</code>
             </pre>
           </div>
         </div>

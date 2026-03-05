@@ -21,7 +21,7 @@ const Header = () => {
               <img 
                 src="/src/assets/minfnlogo.png" 
                 alt="Falcon Logo" 
-                className="h-16 w-auto mr-3 hover-lift rounded-lg transition-all duration-300" 
+                className="h-16 w-auto mr-3 rounded-lg transition-all duration-300" 
               />
               <h1 className="text-2xl font-bold text-orange-500 text-gradient-animate">Falcon</h1>
             </div>
