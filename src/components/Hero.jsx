@@ -1,5 +1,4 @@
 import { ArrowRight, Code, Zap, Shield } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import Button from './Button'
 
 const Hero = () => {
@@ -9,7 +8,7 @@ const Hero = () => {
         <div className="mb-8">
           <div className="inline-flex items-center justify-center mb-6 animate-fadeInDown">
             <img 
-              src="assets/minfnlogo.png" 
+              src="../assets/minfnlogo.png" 
               alt="Falcon Logo" 
               className="h-48 w-auto animate-float rounded-xl transition-all duration-300" 
             />
