@@ -1,4 +1,4 @@
-import { Download, Windows, Play, CheckCircle, FileText } from 'lucide-react'
+import { Download, Monitor, Play, CheckCircle, FileText } from 'lucide-react'
 import Button from '../components/Button'
 
 const InstallationPage = () => {
@@ -20,7 +20,7 @@ const InstallationPage = () => {
             <div className="text-center">
               <div className="flex items-center justify-center mb-6">
                 <div className="flex items-center justify-center w-16 h-16 bg-orange-500/20 rounded-xl mr-4">
-                  <Windows className="text-orange-500" size={32} />
+                  <Monitor className="text-orange-500" size={32} />
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-white">Windows Installer</h2>
@@ -32,13 +32,17 @@ const InstallationPage = () => {
                 Download the official Windows installer (.exe) and install Falcon with just a few clicks.
               </p>
               
-              <Button variant="primary" size="lg" className="hover-lift text-lg px-8 py-4">
+              <a 
+                href="/falcon-setup-x64.exe" 
+                download
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-all duration-300 hover-lift"
+              >
                 <Download className="mr-2" size={24} />
                 Download Falcon Installer
-              </Button>
+              </a>
               
               <p className="text-gray-400 text-sm mt-4">
-                File size: ~15 MB | Compatible with Windows 10/11
+                ✅ Compatible with Windows 10/11
               </p>
             </div>
           </div>
@@ -162,7 +166,7 @@ const InstallationPage = () => {
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 animate-fadeInUp animate-delay-600">
             <div className="flex items-center mb-6">
               <div className="flex items-center justify-center w-12 h-12 bg-orange-500/20 rounded-lg mr-4">
-                <Windows className="text-orange-500" size={24} />
+                <Monitor className="text-orange-500" size={24} />
               </div>
               <h2 className="text-2xl font-semibold text-white">System Requirements</h2>
             </div>
