@@ -39,9 +39,9 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2 animate-fadeInUp">
             <div className="flex items-center mb-6">
               <img 
-                src="/src/assets/minfnlogo.png" 
+                src="/minfnlogo.png" 
                 alt="Falcon Logo" 
-                className="h-25 w-auto" 
+                className="h-14 w-auto" 
               />
               <div className="ml-4">
                 <h3 className="text-3xl font-bold text-gradient-animate">Falcon</h3>
