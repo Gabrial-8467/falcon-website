@@ -19,7 +19,7 @@ const Header = () => {
           <div className="flex items-center animate-fadeInLeft">
             <div className="flex-shrink-0 flex items-center">
               <img 
-                src="/src/assets/minfnlogo.png" 
+                src="assets/minfnlogo.png" 
                 alt="Falcon Logo" 
                 className="h-16 w-auto mr-3 rounded-lg transition-all duration-300" 
               />
