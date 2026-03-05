@@ -10,7 +10,7 @@ const Hero = () => {
             <img 
               src="/minfnlogo.png" 
               alt="Falcon Logo" 
-              className="w-32 h-32 mx-auto mb-8 animate-float rounded-lg"
+              className="h-48 w-auto animate-float rounded-xl transition-all duration-300" 
             />
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fadeInUp animate-delay-200">
